@@ -1,0 +1,17 @@
+#PICO iiC scan
+
+import machine
+sda=machine.Pin(8)
+scl=machine.Pin(9)
+i2c=machine.I2C(0,sda=sda, scl=scl, freq=400000)
+
+print('scan...')
+devices = i2c.scan()
+
+if len(devices) == 0:
+    print("no iic")
+else:
+    print("iic dev: ", len(devices))
+    
+    for device in devices:
+        print(device)
