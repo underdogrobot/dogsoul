@@ -32,11 +32,11 @@ delay = 0.01
 
 def dance():
     while True:
-# when pin 2 touched, dance
-        for i in range(12):
-            if mpr121[i].value == True:
-                if != 2:
-                    break
+# Use touched_pins to get current state of all pins.
+        touched = mpr121.touched_pins
+# Test if 2 is touched. Stop motion if not touched
+        if not touched[2]:
+            break
         for angle in range(0, 180, 5):  # 0 - 180 degrees, 5 degrees at a time.
             my_servo1.angle = angle
             time.sleep(delay)
@@ -82,7 +82,7 @@ def walk():
 # Use touched_pins to get current state of all pins.
         touched = mpr121.touched_pins
 # Test if 6 is touched.
-        if NOT touched[6]:
+        if not touched[6]:
             break
         for angle in range(0, 90, 3):  # 0 - 180 degrees, 5 degrees at a time.
             my_servo1.angle = 90 - angle
@@ -110,6 +110,7 @@ while stopRobot == False:
             elif i == 8:
                 bow()
             else:
+# stop the while loop
                 stopRobot = True 
                 break
 
