@@ -1,3 +1,5 @@
+#THIS FILE IS FOR CIRCUIT_PYTHON, NOT MICRO_PYTHON
+
 #FROM: https://youtu.be/9lzWqi9lD8A
 #Please help me turn this program into a method callable by functions in code.py -RobotRobert
 import time, random, board
