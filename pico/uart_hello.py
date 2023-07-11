@@ -5,7 +5,7 @@ TX_PIN=16 # physical pin 21
 RX_PIN=17 # physical pin 22
 UART_NUM = 0 # Since pins 21 and 22 are part of the UART0
 BAUDRATE=9600
-PARITY_BITS=1
+PARITY_BITS=None
 BITS=8
 STOP=1
 
