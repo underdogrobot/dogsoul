@@ -1,2 +1,2 @@
 # dogsoul
-This collection of code powers, Picos, STM32, ESP32, and pi/coral boards
+for UART please see: https://github.com/adafruit/circuitpython/issues/6276 for some cool graphs
