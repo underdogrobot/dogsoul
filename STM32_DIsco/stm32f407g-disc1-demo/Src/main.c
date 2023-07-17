@@ -35,7 +35,7 @@ static const bool RHINO_REQUIRE_ENDPOINT = true;
 /* USER CODE BEGIN PFP */
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 /* USER CODE END PFP */
-
+uint8_t WALK=0, STAND=0;
 /* USER CODE BEGIN 4 */
 extern void uartSendInit(void);
 extern void uartTx(int32_t indx);
@@ -60,10 +60,10 @@ static void inference_callback(pv_inference_t *inference) {
                 printf("        '%s' : '%s',\n", inference->slots[i], inference->values[i]);
                 if(strcmp(inference->values[i], "penthouse")==0){
                 	//uartTx(inference->num_slots);
-                	uartTx(0);
+                	WALK =1;
                 }else if (strcmp(inference->values[i], "p one") == 0){
                 	//walk();
-                	uartTx(1);
+                	STAND = 1;
         		}
             }
             printf("    }\n");
@@ -78,6 +78,8 @@ static void inference_callback(pv_inference_t *inference) {
     	HAL_Delay(30);
     }
     pv_inference_delete(inference);
+    if (WALK) uartTx(0);
+    else if (STAND) uartTx(1);
 }
 
 static void error_handler(void) {

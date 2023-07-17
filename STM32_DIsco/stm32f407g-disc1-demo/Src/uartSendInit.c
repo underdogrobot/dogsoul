@@ -43,7 +43,7 @@ UART_HandleTypeDef UartHandle;
 __IO ITStatus UartReady = RESET;
 
 /* Buffer used for transmission */
-uint8_t aTxBuffer[] = "wsd";
+ uint8_t aTxBuffer[] = "wsd";
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[RXBUFFERSIZE];
@@ -114,7 +114,7 @@ void uartSendInit(void){
   {
     Error_Handler();
   }
-  printf("UART2 Initized\n");
+//  printf("UART2 Initized\n");
 
 }
 
@@ -151,11 +151,11 @@ void uartTx(int32_t indx){
   }
 
   /*##-3- Wait for the end of the transfer ###################################*/
-/*  while (UartReady != SET)
+  while (UartReady != SET)
   {
   }
-*/
-  HAL_Delay(40);
+
+//  HAL_Delay(40);
 
   /* Reset transmission flag */
   UartReady = RESET;
@@ -201,7 +201,7 @@ void uartTx(int32_t indx){
 */
   /* Reset transmission flag */
   UartReady = RESET;
-  printf("aTxBuffer,aRxBuffer,RXBUFFERSIZE=%s,%s,%d", aTxBuffer,aRxBuffer,RXBUFFERSIZE);
+//  printf("aTxBuffer,aRxBuffer,RXBUFFERSIZE=%s,%s,%d", aTxBuffer,aRxBuffer,RXBUFFERSIZE);
   /*##-6- Compare the sent and received buffers ##############################*/
 /*  if(Buffercmp((uint8_t*)aTxBuffer,(uint8_t*)aRxBuffer,RXBUFFERSIZE))
   {

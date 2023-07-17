@@ -14,6 +14,7 @@
 "./Src/main.o"
 "./Src/pv_audio_rec.o"
 "./Src/pv_st_f407.o"
+"./Src/stm32f4xx_hal_msp.o"
 "./Src/stm32f4xx_it.o"
 "./Src/syscalls.o"
 "./Src/system_stm32f4xx.o"
