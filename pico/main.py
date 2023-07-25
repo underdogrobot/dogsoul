@@ -1,37 +1,32 @@
-from machine import UART,Pin
-import utime
+import machine
+import time
 
-TX_PIN=4 # physical pin 21
-RX_PIN=5 # physical pin 22
-UART_NUM = 1 # Since pins 21 and 22 are part of the UART0
-BAUDRATE=9600
-PARITY_BITS=None
-BITS=8
-STOP=1
+# Set up UART1 with the appropriate baud rate and pins.
+uart1 = machine.UART(1, baudrate=9600, tx=machine.Pin(4), rx=machine.Pin(5))
 
-uart = UART(UART_NUM,baudrate=BAUDRATE, tx=Pin(TX_PIN), rx=Pin(RX_PIN))
-uart.init(bits=BITS, parity=PARITY_BITS, stop=STOP)
-data = ""
+def read_char_from_uart(uart):
+    while not uart.any():
+        pass
+    return uart.read(1)
+
+def write_char_to_uart(uart, char):
+    uart.write(char)
+
 while True:
-    #uart.write(b"hello\r\n")    # write some dummy text with a CRLF ends
-    #uart.flush()                # required to ensure the write is finished
-    if uart.any():
-        data = uart.read()
-        #print(data)
-        # print the recieved info.
-        #uart.write(data)
-        if data == b'w':
-            print('w')
-            uart.write(data)
-            #pass
-        elif data == b's':
-            print('s')
-            uart.write("s")
-            #pass
-        elif data == b'd':
-            print('d')
-            uart.write("d")
-            #pass
-        else:
-            pass
-    utime.sleep(1)
+    try:
+        # Read a character from UART1
+        received_char = read_char_from_uart(uart1)
+        print("Received character:", received_char.decode('utf-8'))
+
+        # Modify the received character (e.g., increment it)
+        modified_char = chr(ord(received_char) + 1)
+
+        # Write the modified character back to UART1
+        write_char_to_uart(uart1, modified_char.encode('utf-8'))
+
+        # Wait a bit to avoid flooding the UART
+        time.sleep_ms(100)
+
+    except Exception as e:
+        print("Error:", e)
+

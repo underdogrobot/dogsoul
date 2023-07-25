@@ -62,7 +62,7 @@ static void inference_callback(pv_inference_t *inference) {
                 	//uartTx(inference->num_slots);
                 	WALK =1;
                 }else if (strcmp(inference->values[i], "p one") == 0){
-                	//walk();
+                	//Xmit after pv_inference_delete
                 	STAND = 1;
         		}
             }

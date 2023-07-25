@@ -3,7 +3,6 @@
 	<name>stm32f407g-disc1-demo</name>
 	<comment></comment>
 	<projects>
-		<project>servo4</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

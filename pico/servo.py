@@ -64,11 +64,3 @@ left.duty_u16(degree_from_duty((90)))
 right.duty_u16(degree_from_duty(85))
 
 print(end_position(90, 90))
-
-#NEXT:
-"""
-Work on collision avoidance with self, you have some neato code up there to help you out.
-
-bring a ruler
-
-"""

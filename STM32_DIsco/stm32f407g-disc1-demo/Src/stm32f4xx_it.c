@@ -1,6 +1,6 @@
 /*
     Copyright 2020-2021 Picovoice Inc.
-
+@file    UART/UART_TwoBoards_ComIT/Src/stm32f4xx_it.c
     You may not use this file except in compliance with the license. A copy of the license is located in the "LICENSE"
     file accompanying this source.
 
@@ -16,6 +16,10 @@ extern I2S_HandleTypeDef       hAudioInI2s;
 /* Private variables ---------------------------------------------------------*/
 /* UART handler declared in "main.c" file */
 extern UART_HandleTypeDef UartHandle;
+/* External variables --------------------------------------------------------*/
+extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
+/* USER CODE BEGIN EV */
+
 void NMI_Handler(void) {
 }
 

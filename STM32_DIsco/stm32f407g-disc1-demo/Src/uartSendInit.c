@@ -21,6 +21,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
+#include <string.h>
 #include "main.h"
 #include "stm32f4xx_hal_uart.h"
 /** @addtogroup STM32F4xx_HAL_Examples
@@ -43,7 +44,7 @@ UART_HandleTypeDef UartHandle;
 __IO ITStatus UartReady = RESET;
 
 /* Buffer used for transmission */
- uint8_t aTxBuffer[] = "wsd";
+ char aTxBuffer[] = "wsd";
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[RXBUFFERSIZE];
@@ -63,7 +64,7 @@ static uint16_t Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferL
 static void Error_Handler(void)
 {
   /* Turn LED5 on */
-  BSP_LED_On(LED5);
+  BSP_LED_On(LED5); //red
   while(1)
   {
   }
@@ -119,10 +120,24 @@ void uartSendInit(void){
 }
 
 void uartTx(int32_t indx){
+	switch ( indx ){
+		case 0 :
+			strcpy(aTxBuffer,  "w");
+			break; /* optional */
+		case 1 :
+			strcpy(aTxBuffer,"s");
+			break; /* optional */
+		/* you can have any number of case statements */
+		default : /* Optional */
+			;
+	}
+
+
+
 #ifdef TRANSMITTER_BOARD
+#ifndef USER_Button
   /* Configure USER Button */
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
-#ifdef USER_Button
   /* Wait for USER Button press before starting the Communication */
   while (BSP_PB_GetState(BUTTON_KEY) == RESET)
   {
@@ -144,8 +159,8 @@ void uartTx(int32_t indx){
   /*##-2- Start the transmission process #####################################*/
   /* While the UART in reception process, user can transmit data through
      "aTxBuffer" buffer */
-  if(HAL_UART_Transmit_IT(&UartHandle, (uint8_t*)aTxBuffer, TXBUFFERSIZE)!= HAL_OK)
-  //if(HAL_UART_Transmit_IT(&UartHandle, (uint8_t*)aTxBuffer[indx], 1)!= HAL_OK)
+  //if(HAL_UART_Transmit_IT(&UartHandle, (uint8_t*)aTxBuffer, TXBUFFERSIZE)!= HAL_OK)
+  if(HAL_UART_Transmit_IT(&UartHandle, (uint8_t*)aTxBuffer, 2)!= HAL_OK)
   {
     Error_Handler();
   }
@@ -161,7 +176,8 @@ void uartTx(int32_t indx){
   UartReady = RESET;
 
   /*##-4- Put UART peripheral in reception process ###########################*/
-  if(HAL_UART_Receive_IT(&UartHandle, (uint8_t *)aRxBuffer, RXBUFFERSIZE) != HAL_OK)
+  //if(HAL_UART_Receive_IT(&UartHandle, (uint8_t *)aRxBuffer, RXBUFFERSIZE) != HAL_OK)
+  if(HAL_UART_Receive_IT(&UartHandle, (uint8_t *)aRxBuffer, 1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -195,13 +211,13 @@ void uartTx(int32_t indx){
 #endif /* TRANSMITTER_BOARD */
 
   /*##-5- Wait for the end of the transfer ###################################*/
-/*  while (UartReady != SET)
+  while (UartReady != SET)
   {
   }
-*/
+
   /* Reset transmission flag */
   UartReady = RESET;
-//  printf("aTxBuffer,aRxBuffer,RXBUFFERSIZE=%s,%s,%d", aTxBuffer,aRxBuffer,RXBUFFERSIZE);
+  printf("aTxBuffer,aRxBuffer,RXBUFFERSIZE=%s,%s,%d", aTxBuffer,aRxBuffer,RXBUFFERSIZE);
   /*##-6- Compare the sent and received buffers ##############################*/
 /*  if(Buffercmp((uint8_t*)aTxBuffer,(uint8_t*)aRxBuffer,RXBUFFERSIZE))
   {
