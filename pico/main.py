@@ -11,7 +11,7 @@ def read_char_from_uart(uart):
 
 def write_char_to_uart(uart, char):
     uart.write(char)
-
+    uart.flush()
 while True:
     try:
         # Read a character from UART1

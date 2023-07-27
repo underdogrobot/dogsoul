@@ -60,10 +60,12 @@ static void inference_callback(pv_inference_t *inference) {
                 printf("        '%s' : '%s',\n", inference->slots[i], inference->values[i]);
                 if(strcmp(inference->values[i], "penthouse")==0){
                 	//uartTx(inference->num_slots);
-                	WALK =1;
+                	WALK = 1;
+                	STAND =0;
                 }else if (strcmp(inference->values[i], "p one") == 0){
                 	//Xmit after pv_inference_delete
                 	STAND = 1;
+                	WALK = 0;
         		}
             }
             printf("    }\n");
@@ -78,8 +80,10 @@ static void inference_callback(pv_inference_t *inference) {
     	HAL_Delay(30);
     }
     pv_inference_delete(inference);
-    if (WALK) uartTx(0);
-    else if (STAND) uartTx(1);
+    if (WALK)
+    	uartTx(0);
+    else if (STAND)
+    	uartTx(1);
 }
 
 static void error_handler(void) {

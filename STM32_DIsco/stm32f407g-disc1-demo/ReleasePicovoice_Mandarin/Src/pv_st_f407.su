@@ -1,7 +1,0 @@
-../Src/pv_st_f407.c:55:16:pv_get_uuid	0	static
-../Src/pv_st_f407.c:59:16:pv_get_uuid_size	0	static
-../Src/pv_st_f407.c:63:13:pv_board_init	96	static
-../Src/pv_st_f407.c:80:6:pv_board_deinit	0	static
-../Src/pv_st_f407.c:83:6:pv_error_handler	0	static,ignoring_inline_asm
-../Src/pv_st_f407.c:88:6:assert_failed	0	static,ignoring_inline_asm
-../Src/pv_st_f407.c:95:5:__io_putchar	0	static,ignoring_inline_asm

@@ -1,6 +1,0 @@
-../Src/pv_audio_rec.c:45:13:pv_audio_rec_init	8	static
-../Src/pv_audio_rec.c:60:13:pv_audio_rec_start	8	static
-../Src/pv_audio_rec.c:68:16:pv_audio_rec_get_new_buffer	0	static
-../Src/pv_audio_rec.c:82:6:BSP_AUDIO_IN_TransferComplete_CallBack	24	static
-../Src/pv_audio_rec.c:95:6:BSP_AUDIO_IN_HalfTransfer_CallBack	24	static
-../Src/pv_audio_rec.c:108:6:pv_audio_rec_deinit	0	static

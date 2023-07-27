@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+# Toolchain: GNU Tools for STM32 (11.3.rel1)
 ################################################################################
 
 ELF_SRCS := 
@@ -24,7 +24,6 @@ C_DEPS :=
 SUBDIRS := \
 Drivers/BSP/Components/cs43l22 \
 Drivers/BSP/STM32F4-Discovery \
-Drivers/STM32F4xx_HAL_Driver/Src/Legacy \
 Drivers/STM32F4xx_HAL_Driver/Src \
 Src \
 Startup \

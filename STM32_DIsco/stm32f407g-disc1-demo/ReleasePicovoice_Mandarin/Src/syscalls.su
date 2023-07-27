@@ -3,7 +3,7 @@
 ../Src/syscalls.c:80:6:initialise_monitor_handles	0	static
 ../Src/syscalls.c:84:5:_getpid	0	static
 ../Src/syscalls.c:89:5:_kill	8	static
-c:\st\stm32cubeide_1.12.1\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003\tools\arm-none-eabi\include\sys\unistd.h:18:6:_exit	8	static
+c:\st\stm32cubeide_1.12.1\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.0.100.202301251239\tools\arm-none-eabi\include\sys\unistd.h:18:6:_exit	8	static
 ../Src/syscalls.c:101:5:_write	16	static
 ../Src/syscalls.c:112:5:_close	0	static
 ../Src/syscalls.c:117:5:_fstat	0	static
@@ -11,7 +11,7 @@ c:\st\stm32cubeide_1.12.1\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.external
 ../Src/syscalls.c:128:5:_lseek	0	static
 ../Src/syscalls.c:133:5:_read	16	static
 ../Src/syscalls.c:145:5:_open	0	static
-c:\st\stm32cubeide_1.12.1\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003\tools\arm-none-eabi\include\sys\wait.h:38:7:_wait	8	static
+c:\st\stm32cubeide_1.12.1\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.0.100.202301251239\tools\arm-none-eabi\include\sys\wait.h:38:7:_wait	8	static
 ../Src/syscalls.c:157:5:_unlink	8	static
 ../Src/syscalls.c:163:5:_times	0	static
 ../Src/syscalls.c:168:5:_stat	0	static

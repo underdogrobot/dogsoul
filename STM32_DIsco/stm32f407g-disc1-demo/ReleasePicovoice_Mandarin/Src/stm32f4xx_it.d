@@ -1,5 +1,4 @@
-Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c ../Inc/stm32f4xx_it.h \
- ../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h \
+Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c ../Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -29,13 +28,17 @@ Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c ../Inc/stm32f4xx_it.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
+ ../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h \
+ ../Inc/stm32f4xx_it.h \
  ../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_audio.h \
  ../Drivers/BSP/STM32F4-Discovery/../Components/cs43l22/cs43l22.h \
  ../Drivers/BSP/STM32F4-Discovery/../Components/cs43l22/../Common/audio.h \
  ../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h \
  ../Drivers/BSP/STM32F4-Discovery/../../../Middlewares/ST/STM32_Audio/Addons/PDM/Inc/pdm2pcm_glo.h
-../Inc/stm32f4xx_it.h:
-../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h:
+../Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -65,6 +68,11 @@ Src/stm32f4xx_it.o: ../Src/stm32f4xx_it.c ../Inc/stm32f4xx_it.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
+../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h:
+../Inc/stm32f4xx_it.h:
 ../Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_audio.h:
 ../Drivers/BSP/STM32F4-Discovery/../Components/cs43l22/cs43l22.h:
 ../Drivers/BSP/STM32F4-Discovery/../Components/cs43l22/../Common/audio.h:

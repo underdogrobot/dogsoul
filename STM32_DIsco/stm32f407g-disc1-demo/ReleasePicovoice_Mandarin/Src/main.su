@@ -1,3 +1,0 @@
-../Src/main.c:40:13:inference_callback	16	static
-../Src/main.c:35:13:wake_word_callback	8	static
-../Src/main.c:69:5:main	56	static
