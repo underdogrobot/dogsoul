@@ -59,7 +59,7 @@ uint32_t uwPrescalerValue = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-
+void accConfigInit(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
@@ -86,10 +86,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	//const uint8_t UART_BUF_MAX = 80;
-
-
-	LIS3DSH_InitTypeDef accConfigDef;
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -123,12 +119,7 @@ int main(void)
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);
 
-  accConfigDef.dataRate = LIS3DSH_DATARATE_3_125; /* 3.125 Hz Normal Mode */
-  accConfigDef.fullScale = LIS3DSH_FULLSCALE_16;   /* 16 g  */
-  accConfigDef.enableAxes = LIS3DSH_XYZ_ENABLE;
-  accConfigDef.antiAliasingBW = LIS3DSH_FILTER_BW_50;  /* 50 Hz  */
-  accConfigDef.interruptEnable = false;
-  LIS3DSH_Init(&hspi1, &accConfigDef);
+
   /* USER CODE END 2 */
   /* USER CODE BEGIN 3 */
 	/*##-2- Start the TIM Base generation in interrupt mode ####################*/
@@ -148,6 +139,17 @@ int main(void)
 
   /* USER CODE END 3 */
 
+}
+void accConfigInit(void){
+	LIS3DSH_InitTypeDef accConfigDef;
+
+	accConfigDef.dataRate = LIS3DSH_DATARATE_3_125; /* 3.125 Hz Normal Mode */
+	accConfigDef.fullScale = LIS3DSH_FULLSCALE_16;   /* 16 g  */
+	accConfigDef.enableAxes = LIS3DSH_XYZ_ENABLE;
+	accConfigDef.antiAliasingBW = LIS3DSH_FILTER_BW_50;  /* 50 Hz  */
+	accConfigDef.interruptEnable = false;
+
+	LIS3DSH_Init(&hspi1, &accConfigDef);
 }
 
 void readACC(void)
