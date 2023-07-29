@@ -1,0 +1,6 @@
+uartSendInit.c:64:13:Error_Handler	1
+uartSendInit.c:77:6:uartSendInit	4
+uartSendInit.c:122:6:uartTx	6
+uartSendInit.c:307:6:HAL_UART_TxCpltCallback	1
+uartSendInit.c:323:6:HAL_UART_RxCpltCallback	1
+uartSendInit.c:339:7:HAL_UART_ErrorCallback	1

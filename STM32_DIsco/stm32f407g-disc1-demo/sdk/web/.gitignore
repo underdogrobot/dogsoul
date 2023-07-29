@@ -1,0 +1,9 @@
+node_modules
+dist
+test/**/*.js
+test/**/*.json
+test/**/*.pv
+test/**/*.ppn
+test/**/*.rhn
+test/**/*.wav
+cypress/fixtures/audio_samples
