@@ -2,7 +2,9 @@
 /**
   ******************************************************************************
   * @file           : main.c
+  * @file    TIM/TIM_TimeBase/Src/main.c
   * @brief          : Main program body
+  *
   ******************************************************************************
   * @attention
   *
@@ -32,7 +34,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+int8_t READ_ACC = 0;
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -49,19 +52,25 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+TIM_HandleTypeDef TimHandle;
+
+uint32_t uwPrescalerValue = 0;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
+
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_TIM1_Init(void);
+static void my_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 
+static void SystemClock_Config(void);
+//static void Error_Handler(void);
+//static void Error_Handler(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -105,7 +114,15 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_TIM1_Init();
+
+  my_TIM3_Init();
+
   /* USER CODE BEGIN 2 */
+
+  /* Configure LED3 and LED4 */
+  BSP_LED_Init(LED3);
+  BSP_LED_Init(LED4);
+
   accConfigDef.dataRate = LIS3DSH_DATARATE_3_125; /* 3.125 Hz Normal Mode */
   accConfigDef.fullScale = LIS3DSH_FULLSCALE_16;   /* 16 g  */
   accConfigDef.enableAxes = LIS3DSH_XYZ_ENABLE;
@@ -113,73 +130,51 @@ int main(void)
   accConfigDef.interruptEnable = false;
   LIS3DSH_Init(&hspi1, &accConfigDef);
   /* USER CODE END 2 */
+  /* USER CODE BEGIN 3 */
+	/*##-2- Start the TIM Base generation in interrupt mode ####################*/
+	/* Start Channel1 */
+	if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK)
+	{
+	  /* Starting Error */
+	  Error_Handler();
+	}
+	/* USER CODE BEGIN 3 */
+	/* Infinite loop */
+	while (1)
+	{
+		if (READ_ACC ) readACC();
+		READ_ACC = 0; // reset to false
+	}
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-    if(LIS3DSH_PollDRDY(1000)){
-    	acc = LIS3DSH_GetDataScaled();
-    	HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-
-    	sprintf((char*)buf,"#AccXYZ:%.12f,%.12f,%.12f\r\n", acc.x, acc.y, acc.z);
-    	printf("#XYZ:%.12f,%.12f,%.12f\r\n", acc.x, acc.y, acc.z);
-    	//printf("#AccXYZ:%5.2f,%5.2f,%5.2f\r\n", acc.x, acc.y, acc.z);
-    	ret = HAL_UART_Transmit(&huart3, buf, strlen((char*)buf), HAL_MAX_DELAY);
-    	if(ret != HAL_OK) {
-    		strcpy((char*)buf, "Error Tx:%d\r\n");}
-    }
-  }
   /* USER CODE END 3 */
+
 }
 
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
-void SystemClock_Config(void)
+void readACC(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	/* USER CODE BEGIN 1 */
+	const uint8_t UART_BUF_MAX = 80;
+	uint8_t buf[UART_BUF_MAX];
+	HAL_StatusTypeDef ret;
+	LIS3DSH_InitTypeDef accConfigDef;
+	LIS3DSH_DataScaled acc;
+	/* USER CODE END 1 */
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+	/* USER CODE BEGIN 3 */
+	if(LIS3DSH_PollDRDY(1000))
+	{
+		acc = LIS3DSH_GetDataScaled();
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 168;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+		sprintf((char*)buf,"#AccXYZ:%.12f,%.12f,%.12f\r\n", acc.x, acc.y, acc.z);
+		printf("#XYZ:%.12f,%.12f,%.12f\r\n", acc.x, acc.y, acc.z);
+		//printf("#AccXYZ:%5.2f,%5.2f,%5.2f\r\n", acc.x, acc.y, acc.z);
+		ret = HAL_UART_Transmit(&huart3, buf, strlen((char*)buf), HAL_MAX_DELAY);
+		if(ret != HAL_OK) {
+			strcpy((char*)buf, "Error Tx:%d\r\n");
+		}
 
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-  {
-    Error_Handler();
-  }
+	}
 }
 
 /**
@@ -276,6 +271,69 @@ static void MX_TIM1_Init(void)
 
 }
 
+
+/* USER CODE BEGIN TIM3_Init 2 */
+/*##-1- Configure the TIM peripheral #######################################*/
+/* -----------------------------------------------------------------------
+  In this example TIM3 input clock (TIM3CLK) is set to 2 * APB1 clock (PCLK1),
+  since APB1 prescaler is different from 1.
+    TIM3CLK = 2 * PCLK1
+    PCLK1 = HCLK / 4
+    => TIM3CLK = HCLK / 2 = SystemCoreClock /2
+  To get TIM3 counter clock at 10 KHz, the Prescaler is computed as following:
+  Prescaler = (TIM3CLK / TIM3 counter clock) - 1
+  Prescaler = ((SystemCoreClock /2) /10 KHz) - 1
+
+  Note:
+   SystemCoreClock variable holds HCLK frequency and is defined in system_stm32f4xx.c file.
+   Each time the core clock (HCLK) changes, user had to update SystemCoreClock
+   variable value. Otherwise, any configuration based on this variable will be incorrect.
+   This variable is updated in three ways:
+    1) by calling CMSIS function SystemCoreClockUpdate()
+    2) by calling HAL API function HAL_RCC_GetSysClockFreq()
+    3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
+----------------------------------------------------------------------- */
+static void my_TIM3_Init(void)
+{
+	/* Compute the prescaler value to have TIM3 counter clock equal to 10 KHz */
+	uwPrescalerValue = (uint32_t) ((SystemCoreClock /2) / 10000) - 1;
+
+	/* Set TIMx instance */
+	TimHandle.Instance = TIMx;
+
+	/* Initialize TIM3 peripheral as follow:
+		 + Period = 10000 - 1
+		 + Prescaler = ((SystemCoreClock/2)/10000) - 1
+		 + ClockDivision = 0
+		 + Counter direction = Up
+	*/
+	TimHandle.Init.Period = 10000 - 1;
+	TimHandle.Init.Prescaler = uwPrescalerValue;
+	TimHandle.Init.ClockDivision = 0;
+	TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+	TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if(HAL_TIM_Base_Init(&TimHandle) != HAL_OK)
+	{
+	  /* Initialization Error */
+	  Error_Handler();
+	}
+
+
+}
+/* USER CODE END TIM3_Init 2 */
+
+/* USER CODE BEGIN TIM3_Init 3 */
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @param  htim: TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	READ_ACC = 1;	// true,  a FLAG to read accelerometer
+	BSP_LED_Toggle(LED4);  //
+}
+/* USER CODE END TIM3_Init  */
 /**
   * @brief USART1 Initialization Function
   * @param None
@@ -402,6 +460,7 @@ static void MX_GPIO_Init(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
+//static void Error_Handler(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -429,3 +488,94 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+/* @brief  System Clock Configuration
+*         The system Clock is configured as follow :
+*            System Clock source            = PLL (HSE)
+*            SYSCLK(Hz)                     = 168000000
+*            HCLK(Hz)                       = 168000000
+*            AHB Prescaler                  = 1
+*            APB1 Prescaler                 = 4
+*            APB2 Prescaler                 = 2
+*            HSE Frequency(Hz)              = 8000000
+*            PLL_M                          = 8
+*            PLL_N                          = 336
+*            PLL_P                          = 2
+*            PLL_Q                          = 7
+*            VDD(V)                         = 3.3
+*            Main regulator output voltage  = Scale1 mode
+*            Flash Latency(WS)              = 5
+* @param  None
+* @retval None
+*/
+static void SystemClock_Config(void)
+{
+  RCC_ClkInitTypeDef RCC_ClkInitStruct;
+  RCC_OscInitTypeDef RCC_OscInitStruct;
+
+  /* Enable Power Control clock */
+  __HAL_RCC_PWR_CLK_ENABLE();
+
+  /* The voltage scaling allows optimizing the power consumption when the device is
+     clocked below the maximum system frequency, to update the voltage scaling value
+     regarding system frequency refer to product datasheet.  */
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  /* Enable HSE Oscillator and activate PLL with HSE as source */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
+  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
+  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+
+  /* STM32F405x/407x/415x/417x Revision Z devices: prefetch is supported  */
+  if (HAL_GetREVID() == 0x1001)
+  {
+    /* Enable the Flash prefetch */
+    __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+  }
+}
+
+#ifdef  USE_FULL_ASSERT
+
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t* file, uint32_t line)
+{
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+
+  /* Infinite loop */
+  while (1)
+  {
+  }
+}
+#endif
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */

@@ -175,7 +175,16 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM1_MspInit 1 */
+    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /* TIMx Peripheral clock enable */
+    __HAL_RCC_TIM3_CLK_ENABLE();
 
+    /*##-2- Configure the NVIC for TIMx ########################################*/
+    /* Set Interrupt Group Priority */
+    HAL_NVIC_SetPriority(TIMx_IRQn, 4, 0);
+
+    /* Enable the TIMx global Interrupt */
+    HAL_NVIC_EnableIRQ(TIMx_IRQn);
   /* USER CODE END TIM1_MspInit 1 */
   }
 

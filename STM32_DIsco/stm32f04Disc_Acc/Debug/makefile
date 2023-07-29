@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
 -include ../makefile.init
@@ -10,6 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include Drivers/BSP/STM32F4-Discovery/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
@@ -60,8 +61,8 @@ all: main-build
 main-build: stm32f04Disc_Acc.elf secondary-outputs
 
 # Tool invocations
-stm32f04Disc_Acc.elf stm32f04Disc_Acc.map: $(OBJS) $(USER_OBJS) C:\Users\fg\STM32CubeIDE\workspace_1.12.1\stm32f04Disc_Acc\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32f04Disc_Acc.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\fg\STM32CubeIDE\workspace_1.12.1\stm32f04Disc_Acc\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f04Disc_Acc.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+stm32f04Disc_Acc.elf stm32f04Disc_Acc.map: $(OBJS) $(USER_OBJS) C:\Users\Frank\STM32CubeIDE\workspace_1.12.1\stm32f04Disc_Acc\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stm32f04Disc_Acc.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Frank\STM32CubeIDE\workspace_1.12.1\stm32f04Disc_Acc\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f04Disc_Acc.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
