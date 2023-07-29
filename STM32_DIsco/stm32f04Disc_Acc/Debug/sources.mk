@@ -24,6 +24,12 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+<<<<<<< Updated upstream
+=======
+Drivers/BSP/Components/cs43l22 \
+Drivers/BSP/Components/lis302dl \
+Drivers/BSP/Components/lis3dsh \
+>>>>>>> Stashed changes
 Drivers/BSP/STM32F4-Discovery \
 Drivers/STM32F4xx_HAL_Driver/Src \
 

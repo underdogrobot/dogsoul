@@ -34,7 +34,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+<<<<<<< Updated upstream
 int8_t READ_ACC = 0;
+=======
+Bool_t READ_ACC = FALSE;
+>>>>>>> Stashed changes
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 /* USER CODE END PD */
 
@@ -67,6 +71,12 @@ static void MX_USART3_UART_Init(void);
 static void MX_TIM1_Init(void);
 static void my_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
+<<<<<<< Updated upstream
+=======
+
+static void SystemClock_Config(void);
+static void Error_Handler(void);
+>>>>>>> Stashed changes
 
 static void SystemClock_Config(void);
 //static void Error_Handler(void);
@@ -114,11 +124,18 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_TIM1_Init();
+<<<<<<< Updated upstream
 
   my_TIM3_Init();
 
   /* USER CODE BEGIN 2 */
 
+=======
+  my_TIM3_Init();
+
+  /* USER CODE BEGIN 2 */
+  my_TIM3_Init();
+>>>>>>> Stashed changes
   /* Configure LED3 and LED4 */
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);
@@ -142,15 +159,24 @@ int main(void)
 	/* Infinite loop */
 	while (1)
 	{
+<<<<<<< Updated upstream
 		if (READ_ACC ) readACC();
 		READ_ACC = 0; // reset to false
+=======
+		if (READ_ACC ) my_read();
+		READ_ACC = FALSE;
+>>>>>>> Stashed changes
 	}
 
   /* USER CODE END 3 */
 
 }
 
+<<<<<<< Updated upstream
 void readACC(void)
+=======
+void my read(void)
+>>>>>>> Stashed changes
 {
 	/* USER CODE BEGIN 1 */
 	const uint8_t UART_BUF_MAX = 80;
@@ -176,7 +202,6 @@ void readACC(void)
 
 	}
 }
-
 /**
   * @brief SPI1 Initialization Function
   * @param None
@@ -293,6 +318,10 @@ static void MX_TIM1_Init(void)
     2) by calling HAL API function HAL_RCC_GetSysClockFreq()
     3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
 ----------------------------------------------------------------------- */
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 static void my_TIM3_Init(void)
 {
 	/* Compute the prescaler value to have TIM3 counter clock equal to 10 KHz */
@@ -330,8 +359,12 @@ static void my_TIM3_Init(void)
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+<<<<<<< Updated upstream
 	READ_ACC = 1;	// true,  a FLAG to read accelerometer
 	BSP_LED_Toggle(LED4);  //
+=======
+	BSP_LED_Toggle(LED4);  // setup a FLAG to read accelometer
+>>>>>>> Stashed changes
 }
 /* USER CODE END TIM3_Init  */
 /**

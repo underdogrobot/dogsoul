@@ -11,6 +11,12 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Drivers/BSP/STM32F4-Discovery/subdir.mk
+<<<<<<< Updated upstream
+=======
+-include Drivers/BSP/Components/lis3dsh/subdir.mk
+-include Drivers/BSP/Components/lis302dl/subdir.mk
+-include Drivers/BSP/Components/cs43l22/subdir.mk
+>>>>>>> Stashed changes
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
