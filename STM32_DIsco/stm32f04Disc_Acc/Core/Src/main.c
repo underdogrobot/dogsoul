@@ -67,7 +67,7 @@ static void MX_USART3_UART_Init(void);
 static void MX_TIM1_Init(void);
 static void my_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
-
+void readACC(void);
 static void SystemClock_Config(void);
 //static void Error_Handler(void);
 //static void Error_Handler(void);
@@ -85,11 +85,11 @@ static void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	const uint8_t UART_BUF_MAX = 80;
-	uint8_t buf[UART_BUF_MAX];
-	HAL_StatusTypeDef ret;
+	//const uint8_t UART_BUF_MAX = 80;
+
+
 	LIS3DSH_InitTypeDef accConfigDef;
-	LIS3DSH_DataScaled acc;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -156,7 +156,7 @@ void readACC(void)
 	const uint8_t UART_BUF_MAX = 80;
 	uint8_t buf[UART_BUF_MAX];
 	HAL_StatusTypeDef ret;
-	LIS3DSH_InitTypeDef accConfigDef;
+	//LIS3DSH_InitTypeDef accConfigDef;
 	LIS3DSH_DataScaled acc;
 	/* USER CODE END 1 */
 
