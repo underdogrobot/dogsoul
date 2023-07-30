@@ -40,8 +40,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* UART handler declaration */
-UART_HandleTypeDef UartHandle;
-__IO ITStatus UartReady = RESET;
+extern UART_HandleTypeDef UartHandle;
+__IO ITStatus UartReady = RESET; //multiple definition
 
 /* Buffer used for transmission */
  char aTxBuffer[] = "wsd";
@@ -74,50 +74,8 @@ static void Error_Handler(void)
   * @param  None
   * @retval None
   */
-void uartSendInit(void){
 
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
-  HAL_Init();
 
-  /* Configure LED3, LED4, LED5 and LED6 */
-  BSP_LED_Init(LED3);
-  BSP_LED_Init(LED4);
-  BSP_LED_Init(LED5);
-  BSP_LED_Init(LED6);
-
-  /* Configure the system clock to 168 MHz */
-  SystemClock_Config();
-
-  /*##-1- Configure the UART peripheral ######################################*/
-  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
-  /* UART1 configured as follow:
-      - Word Length = 8 Bits
-      - Stop Bit = One Stop bit
-      - Parity = None
-      - BaudRate = 9600 baud
-      - Hardware flow control disabled (RTS and CTS signals) */
-  UartHandle.Instance          = USARTx;
-
-  UartHandle.Init.BaudRate     = 9600;
-  UartHandle.Init.WordLength   = UART_WORDLENGTH_8B;
-  UartHandle.Init.StopBits     = UART_STOPBITS_1;
-  UartHandle.Init.Parity       = UART_PARITY_NONE;
-  UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
-  UartHandle.Init.Mode         = UART_MODE_TX_RX;
-  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
-
-  if(HAL_UART_Init(&UartHandle) != HAL_OK)
-  {
-    Error_Handler();
-  }
-//  printf("UART2 Initized\n");
-
-}
 
 void uartTx(int32_t indx){
 	switch ( indx ){

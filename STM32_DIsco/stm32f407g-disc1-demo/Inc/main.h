@@ -31,11 +31,19 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stm32f4_discovery.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+/* User can use this section to tailor TIMx instance used and associated
+   resources */
+/* Definition for TIMx clock resources */
+#define TIMx                           TIM3
+#define TIMx_CLK_ENABLE                __HAL_RCC_TIM3_CLK_ENABLE
+/* Definition for TIMx's NVIC */
+#define TIMx_IRQn                      TIM3_IRQn
+#define TIMx_IRQHandler                TIM3_IRQHandler
 
 /* USER CODE END ET */
 
@@ -50,13 +58,27 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-//static void Error_Handler(void);
+//void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MEMS_CS_GPIO_Output_Pin GPIO_PIN_3
+#define MEMS_CS_GPIO_Output_GPIO_Port GPIOE
+#define LED_Green_Pin GPIO_PIN_12
+#define LED_Green_GPIO_Port GPIOD
+#define LED_Orange_Pin GPIO_PIN_13
+#define LED_Orange_GPIO_Port GPIOD
+#define LED_Red_Pin GPIO_PIN_14
+#define LED_Red_GPIO_Port GPIOD
+#define LED_Blue_Pin GPIO_PIN_15
+#define LED_Blue_GPIO_Port GPIOD
+
+/* USER CODE BEGIN Private defines */
+
+/* Private defines for picovoice and UART2----------------------------------------------------*/
 #define CS_I2C_SPI_Pin GPIO_PIN_3
 #define CS_I2C_SPI_GPIO_Port GPIOE
 #define PC14_OSC32_IN_Pin GPIO_PIN_14
@@ -123,9 +145,7 @@ extern "C" {
 #define Audio_SDA_GPIO_Port GPIOB
 #define MEMS_INT2_Pin GPIO_PIN_1
 #define MEMS_INT2_GPIO_Port GPIOE
-
-/* USER CODE BEGIN Private defines */
-
+/* USER CODE END  Private defines for picovoice and UART2*/
 /**
   ******************************************************************************
   * @file    UART/UART_TwoBoards_ComIT/Inc/main.h
@@ -143,14 +163,9 @@ extern "C" {
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-
-
 /* Includes ------------------------------------------------------------------*/
-
 #include "stm32f4_discovery.h"
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* User can use this section to tailor USARTx/UARTx instance used and associated
@@ -160,10 +175,8 @@ extern "C" {
 #define USARTx_CLK_ENABLE()              __HAL_RCC_USART2_CLK_ENABLE();
 #define USARTx_RX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
 #define USARTx_TX_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOA_CLK_ENABLE()
-
 #define USARTx_FORCE_RESET()             __HAL_RCC_USART2_FORCE_RESET()
 #define USARTx_RELEASE_RESET()           __HAL_RCC_USART2_RELEASE_RESET()
-
 /* Definition for USARTx Pins */
 #define USARTx_TX_PIN                    GPIO_PIN_2
 #define USARTx_TX_GPIO_PORT              GPIOA
@@ -171,21 +184,16 @@ extern "C" {
 #define USARTx_RX_PIN                    GPIO_PIN_3
 #define USARTx_RX_GPIO_PORT              GPIOA
 #define USARTx_RX_AF                     GPIO_AF7_USART2
-
 /* Definition for USARTx's NVIC */
 #define USARTx_IRQn                      USART2_IRQn
 #define USARTx_IRQHandler                USART2_IRQHandler
-
 /* Size of Transmission buffer */
 #define TXBUFFERSIZE                      (COUNTOF(aTxBuffer) - 1)
 /* Size of Reception buffer */
 #define RXBUFFERSIZE                      TXBUFFERSIZE
-
 /* Exported macro ------------------------------------------------------------*/
 #define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
 /* Exported functions ------------------------------------------------------- */
-
-
 
 /* USER CODE END Private defines */
 

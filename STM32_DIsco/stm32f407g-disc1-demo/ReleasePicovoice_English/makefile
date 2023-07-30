@@ -65,7 +65,7 @@ main-build: stm32f407g-disc1-demo.elf secondary-outputs
 
 # Tool invocations
 stm32f407g-disc1-demo.elf stm32f407g-disc1-demo.map: $(OBJS) $(USER_OBJS) C:\Users\fg\STM32CubeIDE\workspace_1.12.1\stm32f407g-disc1-demo\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32f407g-disc1-demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\fg\STM32CubeIDE\workspace_1.12.1\stm32f407g-disc1-demo\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f407g-disc1-demo.map" -Wl,--gc-sections -static -L../Middlewares/ST/STM32_Audio/Addons/PDM/Lib/ -L../sdk/mcu/lib/stm32f407/en --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "stm32f407g-disc1-demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\fg\STM32CubeIDE\workspace_1.12.1\stm32f407g-disc1-demo\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f407g-disc1-demo.map" -Wl,--gc-sections -static -L../Middlewares/ST/STM32_Audio/Addons/PDM/Lib/ -L../sdk/mcu/lib/stm32f407/en -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

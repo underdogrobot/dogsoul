@@ -1,23 +1,55 @@
-/*
-    Copyright 2021-2021 Picovoice Inc.
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    stm32f4xx_it.h
+  * @brief   This file contains the headers of the interrupt handlers.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+ ******************************************************************************
+  */
+/* USER CODE END Header */
 
-    You may not use this file except in compliance with the license. A copy of the license is located in the "LICENSE"
-    file accompanying this source.
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __STM32F4xx_IT_H
+#define __STM32F4xx_IT_H
 
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
-    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-    specific language governing permissions and limitations under the License.
-*/
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
-#ifndef STM32F4xx_IT_H
-#define STM32F4xx_IT_H
-
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "main.h"
 #include "stm32f4_discovery.h"
 #include "stm32f4_discovery_audio.h"
 
+/* USER CODE END Includes */
+
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
 #define PDM_OUT_Pin GPIO_PIN_3
 #define PDM_OUT_GPIO_Port GPIOC
+/* USER CODE END ET */
 
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
 void NMI_Handler(void);
 void HardFault_Handler(void);
 void MemManage_Handler(void);
@@ -27,7 +59,16 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void EXTI0_IRQHandler(void);
+/* USER CODE BEGIN EFP */
 void I2S3_IRQHandler(void);
 void I2S2_IRQHandler(void);
 
-#endif // STM32F4xx_IT_H
+void TIMx_IRQHandler(void);
+/* USER CODE END EFP */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __STM32F4xx_IT_H */
