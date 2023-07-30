@@ -156,7 +156,7 @@ LIS3DSH_DataRaw LIS3DSH_GetDataRaw(void)
 }
 LIS3DSH_DataRaw LIS3DSH_GetDataRaw1(void)
 {
-	uint8_t spiBuf[6];
+	uint8_t spiBuf[6] = "";
 	LIS3DSH_DataRaw tempDataRaw;
 	//Read XYZ data
 	LIS3DSH_ReadIO(LIS3DSH_OUT_X_L_ADDR, spiBuf, 6);

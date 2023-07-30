@@ -22,9 +22,6 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Drivers/BSP/Components/cs43l22 \
-Drivers/BSP/STM32F4-Discovery \
-Drivers/STM32F4xx_HAL_Driver/Src \
 Src \
 Startup \
 

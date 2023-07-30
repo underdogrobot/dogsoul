@@ -707,12 +707,13 @@ int main(void) {
 				error_handler();
 			}
 		}
-		else 
-		
+
+#ifndef READacc
 		if (READ_ACC ) {
 			readACC();
 			READ_ACC = 0; // reset to false
 		}
+#endif
 	}
 	pv_board_deinit();
 	pv_audio_rec_deinit();

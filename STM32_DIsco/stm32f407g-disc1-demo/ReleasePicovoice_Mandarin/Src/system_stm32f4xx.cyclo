@@ -1,2 +1,2 @@
-../Src/system_stm32f4xx.c:148:6:SystemInit	1
-../Src/system_stm32f4xx.c:217:6:SystemCoreClockUpdate	4
+../Src/system_stm32f4xx.c:173:6:SystemInit	1
+../Src/system_stm32f4xx.c:247:6:SystemCoreClockUpdate	4

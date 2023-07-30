@@ -48,6 +48,7 @@ extern int __io_getchar(void) __attribute__((weak));
 char *__env[1] = { 0 };
 char **environ = __env;
 
+#ifdef BRK
 caddr_t _sbrk(int incr)
 {
 	extern char end asm("end");
@@ -74,6 +75,7 @@ caddr_t _sbrk(int incr)
 	heap_end += incr;
 	return (caddr_t) prev_heap_end;
 }
+#endif
 /*
  * _gettimeofday primitive (Stub function)
  * */
